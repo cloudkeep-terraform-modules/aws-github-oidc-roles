@@ -34,9 +34,12 @@ resource "aws_iam_role" "github_oidc_roles" {
       }
     ]
   })
+}
 
-  inline_policy {
-    name   = "custom"
-    policy = each.value
-  }
+resource "aws_iam_role_policy" "github_oidc_role_policy" {
+  for_each = var.github_repos
+
+  name   = "github-oidc-policy-${replace(each.key, "/", "-")}"
+  role   = aws_iam_role.github_oidc_roles[each.key].name
+  policy = each.value
 }
