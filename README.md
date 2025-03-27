@@ -24,9 +24,6 @@ module "github_oidc_roles" {
           }
         ]
       })
-      policy_arns = [
-        "arn:aws:iam::123456789012:policy/AdministratorAccess"
-      ]
     },
     {
       repo        = "cloudkeep/another-repo"
