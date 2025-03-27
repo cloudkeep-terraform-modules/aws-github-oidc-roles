@@ -53,7 +53,7 @@ resource "aws_iam_role_policy_attachment" "github_managed_policy" {
   for_each = {
     for item in flatten([
       for entry in var.github_repo_policies : [
-        for policy in lookup(entry, "policy_arns", []) : {
+        for policy in coalesce(entry.policy_arns, []) : {
           repo       = entry.repo,
           policy_arn = policy
         }
